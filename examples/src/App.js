@@ -17,7 +17,7 @@ const options = [
   { value: 'brown ', label: 'Brown ' },
   { value: 'cyan', label: 'Cyan' },
   { value: 'magenta', label: 'Magenta' },
-  { value: 'coral', label: 'Coral' },
+  { value: 'coral', label: 'Coral' }
 ];
 
 const LINK = 'https://github.com/maslianok/react-select-me/';
@@ -36,7 +36,7 @@ export default class App extends Component {
         searchClearOnClose: {
           ...checkboxProps,
           checked: true,
-          disabled: true,
+          disabled: true
         },
         dontCloseOnChange: checkboxProps,
         disabled: checkboxProps,
@@ -53,23 +53,23 @@ export default class App extends Component {
         selectedBlockRenderer: checkboxProps,
         selectedValueRenderer: checkboxProps,
         value: checkboxProps,
-        virtualized: checkboxProps,
+        virtualized: checkboxProps
       },
       onChange: this.onChange.bind(this),
       // s: selectStyles,
-      options,
+      options
     };
   }
 
   getCheckboxFor = (name, label, anchor) => {
     const { checkboxes } = this.state;
     return (
-      <div className="propItem">
-        <input type="checkbox" {...checkboxes[name]} id={name} onChange={this.onPropChange(name)} />
-        <label className="propsLabel" htmlFor={name}>
+      <div className='propItem'>
+        <input type='checkbox' {...checkboxes[name]} id={name} onChange={this.onPropChange(name)} />
+        <label className='propsLabel' htmlFor={name}>
           {label}
           {anchor && (
-            <a target="__blank" className="linkToApi" href={`${LINK}#${anchor}`}>
+            <a target='__blank' className='linkToApi' href={`${LINK}#${anchor}`}>
               [doc]
             </a>
           )}
@@ -86,8 +86,8 @@ export default class App extends Component {
       ...this.state.checkboxes,
       [name]: {
         ...this.state.checkboxes[name],
-        checked,
-      },
+        checked
+      }
     };
 
     switch (name) {
@@ -98,8 +98,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           value: {
             ...newState.checkboxes.value,
-            checked: false,
-          },
+            checked: false
+          }
         };
         break;
       case 'searchable':
@@ -109,8 +109,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           searchClearOnClose: {
             disabled: !checked,
-            checked: true,
-          },
+            checked: true
+          }
         };
         break;
       case 'addNewItem':
@@ -122,8 +122,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           searchable: {
             disabled: checked,
-            checked: true,
-          },
+            checked: true
+          }
         };
         break;
       case 'virtualized':
@@ -160,8 +160,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           virtualized: {
             disabled: checked,
-            checked: false,
-          },
+            checked: false
+          }
         };
         break;
       case 'optionRenderer':
@@ -172,8 +172,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           virtualized: {
             disabled: checked,
-            checked: false,
-          },
+            checked: false
+          }
         };
         break;
       case 'placeholder':
@@ -190,20 +190,20 @@ export default class App extends Component {
         newState.checkboxes = {
           ...newState.checkboxes,
           multiple: {
-            checked,
+            checked
           },
           searchable: {
             disabled: checked,
-            checked: false,
+            checked: false
           },
           virtualized: {
             disabled: checked,
-            checked: false,
+            checked: false
           },
           selectedValueRenderer: {
             disabled: checked,
-            checked: false,
-          },
+            checked: false
+          }
         };
         break;
       case 'selectedValueRenderer':
@@ -213,8 +213,8 @@ export default class App extends Component {
           ...newState.checkboxes,
           virtualized: {
             disabled: checked,
-            checked: false,
-          },
+            checked: false
+          }
         };
 
         if (checked) {
@@ -239,7 +239,7 @@ export default class App extends Component {
 
   onChange = value => {
     this.setState({
-      value,
+      value
     });
 
     return this.state.dontCloseOnChange;
@@ -249,7 +249,7 @@ export default class App extends Component {
     const lowerString = searchString.toLowerCase();
     const currOptions = this.state.virtualized ? tonsOfOptions : options;
     this.setState({
-      options: searchString ? currOptions.filter(o => o.label.toLowerCase().indexOf(lowerString) > -1) : currOptions,
+      options: searchString ? currOptions.filter(o => o.label.toLowerCase().indexOf(lowerString) > -1) : currOptions
     });
   };
 
@@ -262,19 +262,19 @@ export default class App extends Component {
       options.push(newOption);
     }
     this.setState({
-      value: multiple ? [...(this.state.value || []), newOption] : newOption,
+      value: multiple ? [...(this.state.value || []), newOption] : newOption
     });
   };
 
   optionRenderer = (item, selectedItems) => {
     const isSelected = selectedItems.some(selected => selected.value === item.value);
     const optionClassNames = cs('customOption', {
-      selected: isSelected,
+      selected: isSelected
     });
     return (
       <div className={optionClassNames}>
-        <div className="color" style={{ backgroundColor: item.value }} />
-        <div className="value">{item.label}</div>
+        <div className='color' style={{ backgroundColor: item.value }} />
+        <div className='value'>{item.label}</div>
       </div>
     );
   };
@@ -282,20 +282,20 @@ export default class App extends Component {
   listRenderer = (items, selectedOptions, optionRenderer, onChange, onToggle) => {
     const path = 'M564.985,578.822l1.089-1.1L572,584l-1,1ZM571,585l-1-1,11.926-14.015,1.089,1.1Z';
     return (
-      <div className="customList">
-        <div className="list">
+      <div className='customList'>
+        <div className='list'>
           {items.map(item => {
             const isSelected = selectedOptions.some(el => el.value === item.value);
             const labelClasses = cs('label', {
-              colorListLabelSelected: isSelected,
+              colorListLabelSelected: isSelected
             });
             return (
-              <div className="option" onClick={onChange(item)} key={item.value}>
-                <div className="color" style={{ backgroundColor: item.value }}>
+              <div className='option' onClick={onChange(item)} key={item.value}>
+                <div className='color' style={{ backgroundColor: item.value }}>
                   {isSelected && (
-                    <div className="colorSelected">
-                      <svg fill="#FFF" width="18px" height="15px">
-                        <path d={path} transform="translate(-565 -570)" />
+                    <div className='colorSelected'>
+                      <svg fill='#FFF' width='18px' height='15px'>
+                        <path d={path} transform='translate(-565 -570)' />
                       </svg>
                     </div>
                   )}
@@ -307,8 +307,8 @@ export default class App extends Component {
             );
           })}
         </div>
-        <div className="actions">
-          <button onClick={onToggle} className="choose">
+        <div className='actions'>
+          <button onClick={onToggle} className='choose'>
             <span>Choose</span>
           </button>
         </div>
@@ -318,14 +318,14 @@ export default class App extends Component {
 
   selectedBlockRenderer = selectedOptions => {
     if (!selectedOptions.length) {
-      return <div className="selectedBlock">Select an option</div>;
+      return <div className='selectedBlock'>Select an option</div>;
     }
 
     const [firstOption, ...otherOptions] = selectedOptions;
     return (
-      <div className="selectedBlock">
-        <div className="value">{firstOption.label}</div>
-        {!!otherOptions.length && <div className="counter">+{otherOptions.length}</div>}
+      <div className='selectedBlock'>
+        <div className='value'>{firstOption.label}</div>
+        {!!otherOptions.length && <div className='counter'>+{otherOptions.length}</div>}
       </div>
     );
   };
@@ -334,15 +334,15 @@ export default class App extends Component {
     const path =
       'M 10.95 1.71 C 10.95 1.71 6.71 5.95 6.71 5.95 C 6.32 6.34 5.68 6.34 5.29 5.95 C 5.29 5.95 1.05 1.71 1.05 1.71 C 0.66 1.32 0.66 0.68 1.05 0.29 C 1.44 -0.1 2.07 -0.1 2.46 0.29 C 2.46 0.29 6 3.83 6 3.83 C 6 3.83 9.54 0.29 9.54 0.29 C 9.93 -0.1 10.56 -0.1 10.95 0.29 C 11.34 0.68 11.34 1.32 10.95 1.71 Z'; // eslint-disable-line max-len
     return (
-      <svg width="12px" height="7px">
+      <svg width='12px' height='7px'>
         <path d={path} />
       </svg>
     );
   };
 
   selectedValueRenderer = item => (
-    <div className="selectedOption" key={item.value}>
-      <div className="selectedColor" style={{ backgroundColor: item.value }} />
+    <div className='selectedOption' key={item.value}>
+      <div className='selectedColor' style={{ backgroundColor: item.value }} />
       <div>{item.label}</div>
     </div>
   );
@@ -351,45 +351,45 @@ export default class App extends Component {
     const { dontCloseOnChange, checkboxes, ...params } = this.state; // eslint-disable-line no-unused-vars
     return (
       <div>
-        <div className="header">react-select-me</div>
-        <ul className="menu">
+        <div className='header'>react-select-me</div>
+        <ul className='menu'>
           <li>
             <a href={LINK}>GitHub</a>
           </li>
         </ul>
 
-        <div className="example">{params.virtualized ? <VirtualizedSelect {...params} /> : <Select {...params} />}</div>
+        <div className='example'>{params.virtualized ? <VirtualizedSelect {...params} /> : <Select {...params} />}</div>
 
-        <div className="propsWraper">
-          <div className="propsColumn">
-            <div className="columnTitle">General</div>
-            <div className="propsList">
+        <div className='propsWraper'>
+          <div className='propsColumn'>
+            <div className='columnTitle'>General</div>
+            <div className='propsList'>
               {this.getCheckboxFor('multiple', 'Multiple', 'multiple-bool')}
               {this.getCheckboxFor('searchable', 'Searchable', 'searchable-bool')}
               {this.getCheckboxFor('addNewItem', '"Add new" option')}
               {this.getCheckboxFor('virtualized', 'Virtualized (2k options)', 'virtualized-bool')}
             </div>
           </div>
-          <div className="propsColumn">
-            <div className="columnTitle">Renderers</div>
-            <div className="propsList">
+          <div className='propsColumn'>
+            <div className='columnTitle'>Renderers</div>
+            <div className='propsList'>
               {this.getCheckboxFor('iconRenderer', 'Icon renderer', 'iconrenderer-function')}
               {this.getCheckboxFor('optionRenderer', 'Option renderer', 'optionrenderer-function')}
               {this.getCheckboxFor(
                 'selectedValueRenderer',
                 'Selected value renderer',
-                'selectedvaluerenderer-function',
+                'selectedvaluerenderer-function'
               )}
               {this.getCheckboxFor(
                 'selectedBlockRenderer',
                 'Selected block renderer',
-                'selectedblockrenderer-function',
+                'selectedblockrenderer-function'
               )}
             </div>
           </div>
-          <div className="propsColumn">
-            <div className="columnTitle">Other</div>
-            <div className="propsList">
+          <div className='propsColumn'>
+            <div className='columnTitle'>Other</div>
+            <div className='propsList'>
               {this.getCheckboxFor('dontCloseOnChange', 'Do not close on change')}
               {this.getCheckboxFor('disabled', 'Disabled')}
               {this.getCheckboxFor('placeholder', 'Set placeholder')}

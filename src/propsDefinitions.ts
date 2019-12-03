@@ -1,6 +1,109 @@
 import T from 'prop-types';
 
-export const defaultProps = {
+export module IReactSelectMe {
+  export type ListPosition = 'top' | 'bottom' | 'auto';
+
+  export type Primitive = string | number;
+
+  export type Option = {[K: string]: string | Primitive} | Primitive;
+
+  export type ClassType = string;
+
+  export interface ClassNames {
+    // wrapper
+    dd__wrapper?: ClassType;
+    // applied to multi select
+    dd__multi?: ClassType;
+    // applied to single select
+    dd__single?: ClassType;
+    // applied when dropdown opened
+    dd__opened?: ClassType;
+    // applied when dropdown has error property
+    dd__error?: ClassType;
+    // disabled
+    dd__disabled?: ClassType;
+    // selected block class
+    dd__selectControl?: ClassType;
+    // selected values wrapper class
+    dd__selected?: ClassType;
+    // placeholder class
+    dd__placeholder?: ClassType;
+    // selected option class
+    dd__selectedItem?: ClassType;
+    // icon to remove selected value class
+    dd__crossIcon?: ClassType;
+    // list class
+    dd__list?: ClassType;
+    // virtualized list class
+    dd__listVirtualized?: ClassType;
+    // applied when select opens to bottom
+    dd__openTobottom?: ClassType;
+    // applied when select opens to top
+    dd__openTotop?: ClassType;
+    // dropdown option
+    dd__option?: ClassType;
+    // dropdown option
+    dd__optionDisabled?: ClassType;
+    // virtualized option class
+    dd__optionVirtualized?: ClassType;
+    // selected dropdown option
+    dd__selectedOption?: ClassType;
+    // search input
+    dd__search?: ClassType;
+    // expanded icon
+    dd__expandIcon?: ClassType;
+  }
+
+  export interface Props {
+    addNewItem: boolean | string | Function | T.ReactElementLike;
+    beforeClose: Function;
+    beforeOpen: Function;
+    boundaryMargin: number;
+    disabled: boolean;
+    error: boolean;
+    forbidPhantomSelection?: boolean;
+    getWrapper: Function;
+    iconRenderer?: Function;
+    immutable: boolean;
+    isOpened?: boolean;
+    labelKey: string;
+    listHeight?: number;
+    listMaxHeight: number;
+    listPosition: ListPosition;
+    listRenderer?: Function;
+    multiple: boolean;
+    noItemsFound: boolean | string | Function | T.ReactElementLike;
+    onAddNewItem?: Function;
+    onChange: Function;
+    onClose: Function;
+    onOpen: Function;
+    onSearch?: Function;
+    optionRenderer?: Function;
+    options: Option[];
+    placeholder: string | T.ReactComponentLike;
+    optionHeight: number | Function;
+    s: ClassNames;
+    searchable: boolean;
+    searchClearOnClose: boolean;
+    searchDefaultsToSelectedValue: boolean;
+    searchInputRenderer?: Function;
+    selectedBlockRenderer?: Function;
+    selectedValueRenderer?: Function;
+    value?: Option | Option[];
+    valueKey: string;
+    virtualized: boolean;
+    // from HOC
+    toImmutable?: Function;
+    renderVirtualizedList: Function;
+  }
+
+  export interface State {
+    opened: boolean;
+    search: string;
+  }
+}
+
+export const defaultProps: IReactSelectMe.Props = {
   addNewItem: false,
   beforeClose: () => true,
   beforeOpen: () => true,
@@ -37,6 +140,7 @@ export const defaultProps = {
   selectedValueRenderer: undefined,
   value: undefined,
   virtualized: false,
+  renderVirtualizedList: () => false
 };
 
 const classType = T.oneOfType([T.string, T.array]);
@@ -82,7 +186,7 @@ export const propTypes = {
     // applied when dropdown has error property
     dd__error: classType,
     // disabled
-    dd_disabled: classType,
+    dd__disabled: classType,
     // selected block class
     dd__selectControl: classType,
     // selected values wrapper class
@@ -108,7 +212,7 @@ export const propTypes = {
     // virtualized option class
     dd__optionVirtualized: classType,
     // selected dropdown option
-    dd__selectedOption: classType,
+    dd__selectedOption: classType
   }),
   /* eslint-enable react/no-unused-prop-types */
   searchable: T.bool,
@@ -121,5 +225,5 @@ export const propTypes = {
   valueKey: T.string,
   virtualized: T.bool,
   // from HOC
-  toImmutable: T.func,
+  toImmutable: T.func
 };
